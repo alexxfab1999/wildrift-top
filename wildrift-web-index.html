@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#0a0a0e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WR Top">
+<meta name="description" content="Wild Rift Challenger Hub - Tier list, builds y counters actualizados">
+<title>WR Challenger · Top Lane</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0e;
+  --surface: #111118;
+  --card: #16161f;
+  --border: rgba(255,255,255,0.07);
+  --border-hi: rgba(255,255,255,0.15);
+  --gold: #C8963C;
+  --gold-light: #E8B84B;
+  --gold-dim: rgba(200,150,60,0.15);
+  --red: #E03030;
+  --green: #2ECC71;
+  --blue: #4A9EFF;
+  --purple: #9B6FE8;
+  --text: #F0EEE8;
+  --muted: #7A7880;
+  --faint: #2A2835;
+  --display: 'Rajdhani', sans-serif;
+  --body: 'Inter', sans-serif;
+  --r: 10px;
+  --rs: 6px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{background:var(--bg);height:100%}
+body{font-family:var(--body);background:var(--bg);color:var(--text);min-height:100vh;max-width:430px;margin:0 auto;overflow-x:hidden;position:relative}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 35% at 50% -5%,rgba(200,150,60,0.07) 0%,transparent 60%),repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.012) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.012) 40px);pointer-events:none;z-index:0}
+.app{position:relative;z-index:1;padding-bottom:72px}
+
+/* HEADER */
+.hdr{padding:13px 16px 11px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:rgba(10,10,14,0.92);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+.hdr-l{display:flex;align-items:center;gap:10px}
+.logo{width:32px;height:32px;background:var(--gold-dim);border:1px solid rgba(200,150,60,0.5);border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:14px;font-weight:700;color:var(--gold);letter-spacing:-0.5px}
+.hdr-title{font-family:var(--display);font-size:17px;font-weight:700;letter-spacing:0.3px}
+.hdr-title span{color:var(--gold)}
+.patch-badge{font-size:10px;background:var(--gold-dim);color:var(--gold);border:1px solid rgba(200,150,60,0.3);border-radius:20px;padding:3px 9px;cursor:pointer;transition:opacity .15s}
+.patch-badge:active{opacity:.7}
+
+/* STATUS BAR */
+.status-bar{display:flex;align-items:center;gap:6px;padding:6px 16px;background:var(--surface);border-bottom:1px solid var(--border);font-size:11px;color:var(--muted)}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--muted);flex-shrink:0}
+.status-dot.online{background:var(--green);box-shadow:0 0 6px rgba(46,204,113,0.5)}
+.status-dot.loading{background:var(--gold);animation:pulse2 1s infinite}
+@keyframes pulse2{0%,100%{opacity:.3}50%{opacity:1}}
+
+/* NAV */
+.nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:rgba(17,17,24,0.96);backdrop-filter:blur(20px);border-top:1px solid var(--border);display:flex;z-index:100;padding-bottom:env(safe-area-inset-bottom)}
+.nb{flex:1;padding:9px 4px 7px;display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;border:none;color:var(--muted);cursor:pointer;font-family:var(--body);font-size:10px;transition:color .2s}
+.nb.active{color:var(--gold)}
+.nb svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round}
+
+/* SECTIONS */
+.sec{display:none;padding:14px 14px 0;animation:fadeUp .2s ease}
+.sec.active{display:block}
+@keyframes fadeUp{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* CARDS */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
+.card-hdr{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px}
+.card-hdr h3{font-family:var(--display);font-size:13px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;color:var(--text)}
+
+/* META BANNER */
+.meta-banner{background:linear-gradient(135deg,rgba(200,150,60,0.07),rgba(74,158,255,0.04));border:1px solid rgba(200,150,60,0.18);border-radius:var(--r);padding:11px 14px;margin-bottom:14px;font-size:12px;color:rgba(240,238,232,0.72);line-height:1.65}
+.meta-banner strong{color:var(--gold-light);font-weight:500}
+
+/* TIER */
+.tier-block{margin-bottom:10px}
+.tier-hdr{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.tier-badge{width:34px;height:34px;border-radius:var(--rs);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:14px;font-weight:700;flex-shrink:0}
+.t-sp{background:rgba(200,150,60,0.15);color:var(--gold);border:1px solid rgba(200,150,60,0.4)}
+.t-s{background:rgba(46,204,113,0.1);color:var(--green);border:1px solid rgba(46,204,113,0.3)}
+.t-a{background:rgba(74,158,255,0.1);color:var(--blue);border:1px solid rgba(74,158,255,0.3)}
+.t-b{background:rgba(155,111,232,0.1);color:var(--purple);border:1px solid rgba(155,111,232,0.25)}
+.tier-meta{font-size:11px;color:var(--muted)}
+.tier-meta strong{color:var(--text);font-weight:500}
+
+/* CHAMP PILLS */
+.champ-row{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:4px}
+.pill{display:flex;align-items:center;gap:6px;padding:4px 10px 4px 4px;border-radius:30px;background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:all .15s;font-size:12px;color:var(--text)}
+.pill:active{transform:scale(.96);background:var(--card)}
+.pill img{width:26px;height:26px;border-radius:50%;object-fit:cover;object-position:center top;background:var(--faint);border:1px solid rgba(255,255,255,0.08)}
+.pill-sp{border-color:rgba(200,150,60,0.4)}
+.pill-s{border-color:rgba(46,204,113,0.3)}
+.pill-a{border-color:rgba(74,158,255,0.25)}
+.pill-b{border-color:rgba(155,111,232,0.2)}
+.pill-init{width:26px;height:26px;border-radius:50%;background:var(--faint);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:var(--muted);flex-shrink:0}
+
+/* SEARCH */
+.srch-wrap{position:relative;margin-bottom:12px}
+.srch-icon{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.srch-icon svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2}
+.srch{width:100%;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:10px 14px 10px 34px;color:var(--text);font-family:var(--body);font-size:13px;outline:none;transition:border-color .2s}
+.srch::placeholder{color:var(--muted)}
+.srch:focus{border-color:rgba(200,150,60,0.4)}
+
+/* COUNTER ROWS */
+.ctr-row{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.ctr-row:last-child{border-bottom:none}
+.ctr-row:active{background:rgba(255,255,255,0.025)}
+.ctr-av{width:44px;height:44px;border-radius:8px;object-fit:cover;object-position:center top;background:var(--faint);flex-shrink:0;border:1px solid var(--border)}
+.ctr-info{flex:1;min-width:0}
+.ctr-name{font-family:var(--display);font-size:15px;font-weight:600;margin-bottom:2px}
+.ctr-reason{font-size:11px;color:var(--muted);line-height:1.5}
+.ctr-badge{font-size:10px;font-weight:600;padding:3px 8px;border-radius:20px;flex-shrink:0;margin-top:2px;white-space:nowrap}
+.b-hard{background:rgba(224,48,48,0.15);color:#FF6060;border:1px solid rgba(224,48,48,0.3)}
+.b-strong{background:rgba(200,150,60,0.15);color:var(--gold);border:1px solid rgba(200,150,60,0.3)}
+.b-win{background:rgba(46,204,113,0.12);color:var(--green);border:1px solid rgba(46,204,113,0.3)}
+
+/* ITEMS */
+.items-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}
+.item-wrap{display:flex;flex-direction:column;align-items:center;gap:4px}
+.item-box{width:44px;height:44px;border-radius:var(--rs);background:var(--surface);border:1px solid var(--border);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.item-box img{width:100%;height:100%;object-fit:cover;display:block}
+.item-n{font-size:8px;color:var(--muted);text-align:center;max-width:44px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.item-ord{position:absolute;bottom:1px;right:2px;font-size:8px;font-weight:600;color:var(--gold);background:rgba(0,0,0,0.75);border-radius:2px;padding:0 2px;line-height:1.4}
+
+/* RUNES */
+.rune-list{display:flex;flex-direction:column;gap:6px}
+.rune-row{display:flex;align-items:center;gap:8px;padding:6px 10px;background:var(--surface);border:1px solid var(--border);border-radius:var(--rs)}
+.rune-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.rd-key{background:var(--gold)}
+.rd-sec{background:var(--blue)}
+.rd-ter{background:var(--muted)}
+.rune-name{font-size:12px;color:var(--text)}
+.rune-desc{font-size:10px;color:var(--muted);margin-left:auto}
+
+/* TIPS */
+.tip-box{background:rgba(200,150,60,0.06);border:1px solid rgba(200,150,60,0.18);border-radius:var(--rs);padding:9px 12px;font-size:12px;color:rgba(240,238,232,0.75);line-height:1.6;margin-bottom:8px}
+.tip-box strong{color:var(--gold-light)}
+
+/* CHAMPION OVERLAY */
+.overlay{position:fixed;inset:0;background:var(--bg);z-index:200;overflow-y:auto;transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);max-width:430px;left:50%;margin-left:-215px}
+@media(max-width:430px){.overlay{left:0;margin-left:0}}
+.overlay.open{transform:translateX(0)}
+.ov-topbar{position:sticky;top:0;z-index:10;padding:10px 14px;background:rgba(10,10,14,0.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.back-btn{display:flex;align-items:center;gap:6px;background:transparent;border:none;color:var(--muted);font-family:var(--body);font-size:13px;cursor:pointer;padding:3px 0}
+.back-btn svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round}
+.ov-hero{position:relative;height:165px;background-size:cover;background-position:center 20%;overflow:hidden;display:flex;align-items:flex-end;padding:14px 16px}
+.ov-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(10,10,14,0.15),rgba(10,10,14,0.88))}
+.ov-portrait{width:58px;height:58px;border-radius:var(--rs);object-fit:cover;object-position:center top;border:2px solid var(--gold);position:relative;z-index:1;flex-shrink:0}
+.ov-info{margin-left:12px;position:relative;z-index:1}
+.ov-name{font-family:var(--display);font-size:23px;font-weight:700;letter-spacing:.3px;line-height:1}
+.ov-sub{font-size:11px;color:rgba(240,238,232,0.6);margin-top:3px}
+.ov-pills{display:flex;gap:5px;margin-top:6px;flex-wrap:wrap}
+.ov-pill{font-size:10px;padding:2px 8px;border-radius:20px;background:var(--surface);border:1px solid var(--border);color:var(--muted)}
+.ov-pill.gold{background:var(--gold-dim);color:var(--gold);border-color:rgba(200,150,60,0.35)}
+
+/* TABS */
+.cd-tabs{display:flex;border-bottom:1px solid var(--border);background:var(--surface);position:sticky;top:43px;z-index:9}
+.cd-tab{flex:1;padding:11px 4px;font-family:var(--body);font-size:13px;font-weight:500;background:transparent;border:none;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s}
+.cd-tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.cd-panel{padding:14px 14px 80px}
+.ds-title{font-size:10px;font-weight:500;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.ds{padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--border)}
+.ds:last-child{border-bottom:none}
+
+/* PATCH */
+.pc{padding:10px 14px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.pc:last-child{border-bottom:none}
+.pc-bar{width:3px;border-radius:3px;flex-shrink:0;align-self:stretch;min-height:28px}
+.bar-buff{background:var(--green)}
+.bar-nerf{background:var(--red)}
+.bar-adj{background:var(--blue)}
+.pc-img{width:36px;height:36px;border-radius:6px;object-fit:cover;object-position:center top;flex-shrink:0;border:1px solid var(--border)}
+.pc-body{flex:1;min-width:0}
+.pc-champ{font-family:var(--display);font-size:13px;font-weight:600}
+.pc-desc{font-size:11px;color:var(--muted);line-height:1.5;margin-top:2px}
+.pc-type{font-size:9px;font-weight:600;padding:2px 6px;border-radius:3px;letter-spacing:.4px;text-transform:uppercase;flex-shrink:0}
+.pt-buff{background:rgba(46,204,113,0.12);color:var(--green)}
+.pt-nerf{background:rgba(224,48,48,0.12);color:#FF6060}
+.pt-adj{background:rgba(74,158,255,0.1);color:var(--blue)}
+
+/* LOADING SPINNER */
+.spinner{display:flex;justify-content:center;align-items:center;padding:30px;gap:6px}
+.spin-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:pulse2 1.2s infinite}
+.spin-dot:nth-child(2){animation-delay:.2s}
+.spin-dot:nth-child(3){animation-delay:.4s}
+.empty{text-align:center;padding:28px 16px;color:var(--muted);font-size:13px}
+
+/* AI MSG */
+.ai-msgs{display:flex;flex-direction:column;gap:10px;padding-bottom:12px}
+.ai-msg{padding:11px 13px;border-radius:var(--r);font-size:13px;line-height:1.65;animation:fadeUp .2s ease}
+.ai-user{background:var(--gold-dim);border:1px solid rgba(200,150,60,0.2);color:var(--text);margin-left:20px}
+.ai-bot{background:var(--card);border:1px solid var(--border);color:rgba(240,238,232,0.85);margin-right:20px}
+.ai-bot strong{color:var(--gold-light);font-weight:500}
+.ai-think{display:flex;align-items:center;gap:8px;padding:10px 13px;background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-right:20px;font-size:12px;color:var(--muted)}
+.ai-dots span{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--gold);margin:0 1px;animation:pulse2 1.2s infinite}
+.ai-dots span:nth-child(2){animation-delay:.2s}
+.ai-dots span:nth-child(3){animation-delay:.4s}
+.ai-qbtns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.ai-qbtn{font-size:11px;padding:6px 11px;background:var(--surface);border:1px solid var(--border);border-radius:20px;color:var(--text);cursor:pointer;font-family:var(--body);transition:all .15s}
+.ai-qbtn:active{background:var(--gold-dim);border-color:rgba(200,150,60,0.4);color:var(--gold)}
+.ai-row{display:flex;gap:8px;position:sticky;bottom:72px;background:var(--bg);padding:10px 0 4px;border-top:1px solid var(--border)}
+.ai-inp{flex:1;background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:10px 13px;color:var(--text);font-family:var(--body);font-size:13px;outline:none;resize:none;height:42px;transition:border-color .2s}
+.ai-inp:focus{border-color:rgba(200,150,60,0.4)}
+.ai-inp::placeholder{color:var(--muted)}
+.ai-send{width:42px;height:42px;background:var(--gold);border:none;border-radius:var(--r);display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;transition:opacity .15s}
+.ai-send:disabled{opacity:.35;cursor:default}
+.ai-send svg{width:16px;height:16px;fill:none;stroke:#000;stroke-width:2.5;stroke-linecap:round}
+
+/* SECTION LABEL */
+.slabel{font-size:10px;font-weight:500;letter-spacing:.9px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;padding-top:2px}
+
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-thumb{background:var(--faint);border-radius:3px}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- HEADER -->
+  <div class="hdr">
+    <div class="hdr-l">
+      <div class="logo">WR</div>
+      <div class="hdr-title">Challenger <span>Top</span></div>
+    </div>
+    <div class="patch-badge" id="patch-badge" onclick="fetchPatchNotes()">7.1d ↻</div>
+  </div>
+
+  <!-- STATUS -->
+  <div class="status-bar">
+    <div class="status-dot" id="status-dot"></div>
+    <span id="status-text">Cargando datos en vivo...</span>
+  </div>
+
+  <!-- TIER LIST -->
+  <div class="sec active" id="sec-tier">
+    <div class="meta-banner" id="meta-banner">
+      <strong>Meta 7.1d:</strong> Cargando análisis del parche...
+    </div>
+    <div id="tier-container">
+      <div class="spinner"><div class="spin-dot"></div><div class="spin-dot"></div><div class="spin-dot"></div></div>
+    </div>
+  </div>
+
+  <!-- COUNTERS -->
+  <div class="sec" id="sec-counters">
+    <div class="srch-wrap">
+      <div class="srch-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+      <input class="srch" id="ctr-srch" placeholder="Busca un campeón enemigo..." oninput="onCtrSearch(this.value)" autocomplete="off">
+    </div>
+    <div id="ctr-body">
+      <p class="slabel">Picks más baneados / contra los que más pierdes</p>
+      <div class="card" id="ctr-default"></div>
+    </div>
+  </div>
+
+  <!-- BUILDS -->
+  <div class="sec" id="sec-builds">
+    <div class="srch-wrap">
+      <div class="srch-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+      <input class="srch" id="bld-srch" placeholder="Busca un campeón top..." oninput="onBldSearch(this.value)" autocomplete="off">
+    </div>
+    <p class="slabel">Todos los campeones — toca para ver build</p>
+    <div id="bld-picks"></div>
+  </div>
+
+  <!-- IA -->
+  <div class="sec" id="sec-ai">
+    <div class="ai-qbtns">
+      <button class="ai-qbtn" onclick="qAsk('¿Qué campeones top son S+ en patch 7.1d y por qué dominan?')">Top S+ meta</button>
+      <button class="ai-qbtn" onclick="qAsk('¿Cuál es la mejor build de Ambessa top en Wild Rift 7.1d?')">Build Ambessa</button>
+      <button class="ai-qbtn" onclick="qAsk('¿Cómo llegar a Challenger jugando top lane en Wild Rift?')">Tips Challenger</button>
+      <button class="ai-qbtn" onclick="qAsk('¿Qué composiciones de equipo son mejores con un top bruiser en 7.1d?')">Comp con top</button>
+    </div>
+    <div class="ai-msgs" id="ai-msgs"></div>
+    <div class="ai-row">
+      <textarea class="ai-inp" id="ai-inp" placeholder="Pregunta sobre top lane, builds, counters..." onkeydown="aiKey(event)"></textarea>
+      <button class="ai-send" id="ai-send" onclick="sendAI()">
+        <svg viewBox="0 0 24 24"><path d="M22 2 11 13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- PATCH -->
+  <div class="sec" id="sec-patch">
+    <p class="slabel">Cambios del parche 7.1d</p>
+    <div class="card" id="patch-body">
+      <div class="spinner"><div class="spin-dot"></div><div class="spin-dot"></div><div class="spin-dot"></div></div>
+    </div>
+  </div>
+
+</div><!-- /app -->
+
+<!-- CHAMPION OVERLAY -->
+<div class="overlay" id="ov">
+  <div class="ov-topbar">
+    <button class="back-btn" onclick="closeOv()">
+      <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Volver
+    </button>
+    <span id="ov-patch" style="font-size:11px;color:var(--muted)">Patch 7.1d</span>
+  </div>
+  <div id="ov-body"></div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="nb active" onclick="showSec('tier',this)">
+    <svg viewBox="0 0 24 24"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>Tier
+  </button>
+  <button class="nb" onclick="showSec('counters',this)">
+    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Counters
+  </button>
+  <button class="nb" onclick="showSec('builds',this)">
+    <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>Builds
+  </button>
+  <button class="nb" onclick="showSec('ai',this)">
+    <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>IA
+  </button>
+  <button class="nb" onclick="showSec('patch',this)">
+    <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>Parche
+  </button>
+</nav>
+
+<script>
+// ─────────────────────────────────────────────
+// CONSTANTS & CDN
+// ─────────────────────────────────────────────
+const DD = 'https://ddragon.leagueoflegends.com/cdn/14.24.1';
+const WR_HEROES = 'https://ry2x.github.io/WildRift-Champs/hero.json';
+
+const SLUG = {
+  'lee sin':'LeeSin','miss fortune':'MissFortune','master yi':'MasterYi',
+  'twisted fate':'TwistedFate','xin zhao':'XinZhao','jarvan iv':'JarvanIV',
+  "kog'maw":'KogMaw',"k'sante":'KSante',"kha'zix":'Khazix',
+  'dr. mundo':'DrMundo','nunu & willump':'Nunu','aurelion sol':'AurelionSol',
+  'tahm kench':'TahmKench',"vel'koz":'Velkoz','wukong':'MonkeyKing',
+  'renata glasc':'Renata','bel\'veth':'Belveth',
+};
+
+const ITEM_IDS = {
+  'plated steelcaps':3047,"sorcerer's shoes":3020,'mercury\'s treads':3111,
+  'ionian boots of lucidity':3158,"berserker's greaves":3006,
+  'eclipse':6692,'black cleaver':3071,"sterak's gage":3053,
+  "death's dance":3812,"serylda's grudge":6694,'trinity force':3078,
+  'divine sunderer':6632,'ravenous hydra':3074,'stridebreaker':6631,
+  'sunfire aegis':4401,'thornmail':3075,"warmog's armor":3083,
+  'force of nature':4366,'frozen heart':3110,'gargoyle stoneplate':3193,
+  'heartsteel':6667,'iceborn gauntlet':3044,"randuin's omen":3143,
+  "rabadon's deathcap":3089,"zhonya's hourglass":3157,'shadowflame':4645,
+  'rod of ages':3027,"luden's tempest":3285,"rylai's crystal scepter":3116,
+  "nashor's tooth":3115,'void staff':3135,'infinity edge':3031,
+  'kraken slayer':6672,'galeforce':6671,'immortal shieldbow':6673,
+  'navori quickblades':6675,"phantom dancer":3046,"runaan's hurricane":3085,
+  'locket of the iron solari':3190,'redemption':3107,'ardent censer':3504,
+  'moonstone renewer':6617,'frostfire gauntlet':4403,
+  'hollow radiance':4404,'abyssal mask':3001,
+};
+
+function cImg(name) {
+  const k = name.toLowerCase();
+  const s = SLUG[k] || (name.charAt(0).toUpperCase()+name.slice(1).replace(/[^a-zA-Z]/g,''));
+  return `${DD}/img/champion/${s}.png`;
+}
+function iImg(name) {
+  const id = ITEM_IDS[name.toLowerCase()];
+  if (id) return `${DD}/img/item/${id}.png`;
+  for (const [k,v] of Object.entries(ITEM_IDS)) {
+    if (v && k.split(' ')[0] === name.toLowerCase().split(' ')[0]) return `${DD}/img/item/${v}.png`;
+  }
+  return '';
+}
+function cSlug(name) {
+  const k = name.toLowerCase();
+  return SLUG[k] || (name.charAt(0).toUpperCase()+name.slice(1).replace(/[^a-zA-Z]/g,''));
+}
+
+// ─────────────────────────────────────────────
+// LOCAL DATA — tier list, builds, counters, patch
+// ─────────────────────────────────────────────
+
+const TIERS = {
+  'S+':{champs:['Ambessa','Ornn','Malphite','Sion'],meta:'Dominan el meta. Prioridad pick/ban.'},
+  'S':{champs:['Darius','Fiora','Garen',"K'Sante",'Renekton','Camille'],meta:'Muy fuertes. Excelentes si el S+ está baneado.'},
+  'A':{champs:['Jax','Gnar','Urgot','Volibear','Jayce','Wukong'],meta:'Sólidos. Funcionan bien con la comp correcta.'},
+  'B':{champs:['Nasus','Singed','Aatrox','Mordekaiser','Irelia','Tryndamere'],meta:'Viables. Requieren condiciones específicas.'},
+};
+const TCLS={'S+':'t-sp','S':'t-s','A':'t-a','B':'t-b'};
+const PCLS={'S+':'pill-sp','S':'pill-s','A':'pill-a','B':'pill-b'};
+
+const BUILDS = {
+  'Ambessa':{wr:'54.3%',tier:'S+',role:'Fighter · Top',boots:{n:'Plated Steelcaps',r:'vs físico'},items:[{n:'Eclipse',t:'burst+sustain'},{n:'Black Cleaver',t:'shred con dashes'},{n:"Sterak's Gage",t:'survivability'},{n:"Death's Dance",t:'mitiga burst'},{n:"Serylda's Grudge",t:'slow en Q'}],runes:[{n:'Conqueror',t:'keystone',d:'Peleas largas'},{n:'Bone Plating',t:'sec',d:'Sobrevivir burst'},{n:'Legend: Tenacity',t:'sec',d:'Anti-CC'},{n:'Overgrowth',t:'ter',d:'HP late'}],spells:'Flash + Ignite',skills:'Q → E → W',tips:[{t:'Combo',d:'R → Q → dash → Q2 → E sin pausa. Usa la pasiva entre habilidades.'},{t:'Repudiation (E)',d:'Actívala antes de recibir CC para bloquear y devolver daño.'},{t:'Ult',d:'Prioriza al carry más alejado en teamfights.'}]},
+  'Ornn':{wr:'52.1%',tier:'S+',role:'Tank · Top',boots:{n:'Plated Steelcaps',r:'vs físico'},items:[{n:'Sunfire Aegis',t:'daño pasivo'},{n:'Frostfire Gauntlet',t:'slow+tanque'},{n:'Thornmail',t:'vs ADC'},{n:"Warmog's Armor",t:'regen HP'},{n:'Force of Nature',t:'vs mages'}],runes:[{n:'Grasp of Undying',t:'keystone',d:'HP en trades'},{n:'Demolish',t:'sec',d:'Destruye torres'},{n:'Second Wind',t:'sec',d:'Sustain laning'},{n:'Overgrowth',t:'ter',d:'HP masiva late'}],spells:'Flash + Ignite',skills:'Q → E → W',tips:[{t:'Pasiva (Forge)',d:'Construye items desde cualquier lugar — no vuelvas a base innecesariamente.'},{t:'Combo ult',d:'R lanza carnero → W → Q para slow máximo. Engage devastador.'},{t:'Nivel 13',d:'Mejora los items del equipo — coordina con tu carry.'}]},
+  'Malphite':{wr:'51.8%',tier:'S+',role:'Tank · Top',boots:{n:"Sorcerer's Shoes",r:'burst mágico'},items:[{n:'Rod of Ages',t:'HP+AP+Mana'},{n:'Iceborn Gauntlet',t:'slow en autos'},{n:"Rabadon's Deathcap",t:'amplifica ult'},{n:"Zhonya's Hourglass",t:'post-R'},{n:'Shadowflame',t:'AP extra'}],runes:[{n:'Aery',t:'keystone',d:'Poke laning'},{n:'Manaflow Band',t:'sec',d:'Mana sostenido'},{n:'Transcendence',t:'sec',d:'CDR'},{n:'Gathering Storm',t:'ter',d:'AP late'}],spells:'Flash + Ignite',skills:'Q → E → W',tips:[{t:'Ult',d:'Guarda R para 3+ enemigos juntos. Es el ability más importante.'},{t:'Flash + R',d:'Flash durante el cast extiende el rango sorpresivamente.'},{t:'Build AP',d:'AP borra carries al instante. Más impacto que full tanque.'}]},
+  'Darius':{wr:'51.2%',tier:'S',role:'Fighter · Top',boots:{n:'Plated Steelcaps',r:'vs físico'},items:[{n:'Trinity Force',t:'burst+MS'},{n:'Sterak\'s Gage',t:'survivability'},{n:'Death\'s Dance',t:'mitiga burst'},{n:'Thornmail',t:'vs heals'},{n:"Serylda's Grudge",t:'slow+armor pen'}],runes:[{n:'Conqueror',t:'keystone',d:'Stacks rápidos'},{n:'Triumph',t:'sec',d:'HP en kills'},{n:'Legend: Tenacity',t:'sec',d:'Anti-CC'},{n:'Last Stand',t:'ter',d:'Daño bajo HP'}],spells:'Flash + Ignite',skills:'E → Q → W',tips:[{t:'5 stacks',d:'Consigue 5 stacks de Hemorrhage antes de ultar para daño máximo.'},{t:'Q externo',d:'El borde exterior del Q cura — úsalo en el anillo exterior del enemigo.'},{t:'Anti-kiting',d:'W durante un dash enemigo para interrumpirlo y anilarle la fuga.'}]},
+  'Fiora':{wr:'50.8%',tier:'S',role:'Duelist · Top',boots:{n:'Plated Steelcaps',r:'vs físico'},items:[{n:'Trinity Force',t:'burst MS'},{n:"Ravenous Hydra",t:'sustain+cleave'},{n:"Death's Dance",t:'mitiga burst'},{n:"Sterak's Gage",t:'shield'},{n:"Serylda's Grudge",t:'slow pen'}],runes:[{n:'Conqueror',t:'keystone',d:'Duelos largos'},{n:'Triumph',t:'sec',d:'HP en kills'},{n:'Legend: Alacrity',t:'sec',d:'Attack speed'},{n:'Last Stand',t:'ter',d:'Daño bajo HP'}],spells:'Flash + Ignite',skills:'Q → W → E',tips:[{t:'Parry (W)',d:'Actívala justo antes del CC enemigo para bloquearlo y regenerar mana.'},{t:'Vitales',d:'Golpea los 4 vitales del ult para curar masivamente y ganar la lucha.'},{t:'Split push',d:'Fiora destruye torres muy rápido — presiona side lane y fuerza respuesta.'}]},
+  'Garen':{wr:'50.5%',tier:'S',role:'Fighter · Top',boots:{n:'Plated Steelcaps',r:'vs físico'},items:[{n:'Stridebreaker',t:'gap close'},{n:'Sunfire Aegis',t:'daño pasivo'},{n:"Warmog's Armor",t:'regen HP'},{n:'Gargoyle Stoneplate',t:'teamfight'},{n:'Force of Nature',t:'vs AP'}],runes:[{n:'Grasp of Undying',t:'keystone',d:'HP sostenido'},{n:'Demolish',t:'sec',d:'Torres'},{n:'Bone Plating',t:'sec',d:'Reduce burst'},{n:'Overgrowth',t:'ter',d:'HP masiva'}],spells:'Flash + Ignite',skills:'E → Q → W',tips:[{t:'Silencio (Q)',d:'Silencia antes de que lancen habilidades — interrumpe canales clave.'},{t:'Ult (R)',d:'Usa R en el carry con menos HP — el daño true damage es enorme post-6.'},{t:'Perseverance',d:'Si no recibes daño 8 segundos, la regeneración de HP se activa fuertemente.'}]},
+};
+
+const COUNTERS = {
+  'Ambessa':{hard:[{n:'Pantheon',r:'Pasiva bloquea su burst. Gana trades cortos en early'},{n:'Darius',r:'Stacks en cada dash — la destruye en duelo prolongado'}],strong:[{n:'Fiora',r:'Parry bloquea Q. Outduella post-6 consistentemente'},{n:'Poppy',r:'W niega todos sus dashes y su ult'}],wins:['Gwen','Jax','Irelia','Yasuo','Nasus']},
+  'Ornn':{hard:[{n:'Darius',r:'Presión temprana antes de que tanquee'},{n:'Fiora',r:'True damage ignora su resistencia'}],strong:[{n:'Jayce',r:'Pokeo a distancia sin que pueda responder'},{n:'Gnar',r:'Kiting permanente antes de que llegue a pelear'}],wins:['Singed','Nasus','Malphite','Garen']},
+  'Malphite':{hard:[{n:'Vayne',r:'True damage destruye todo su tanque'},{n:'Fiora',r:'Vital hits ignoran su armadura'}],strong:[{n:'Darius',r:'Gana si entra cuando Malphite tiene CDs gastados'},{n:'Gnar',r:'Kiting antes de level 6'}],wins:['Nasus','Singed','Vladimir','Teemo']},
+  'Darius':{hard:[{n:'Gnar',r:'Kiting permanente — no puede alcanzarle nunca'},{n:'Jayce',r:'Pokeo a distancia desde fase cañón'}],strong:[{n:'Fiora',r:'Parry neutraliza E y Q cambia el duelo'},{n:'Volibear',r:'Engage fuerte interrumpe el stack de Hemorrhage'}],wins:['Ornn','Nasus','Malphite','Garen','Mordekaiser']},
+  'Fiora':{hard:[{n:'Malphite',r:'Ult instantánea interrumpe todo su combo'},{n:'Renekton',r:'Domina early antes de que escale Fiora'}],strong:[{n:'Darius',r:'Parry en Q o E cambia completamente el duelo'},{n:'Garen',r:'Silencio interrumpe su movilidad con Q'}],wins:['Gwen','Irelia','Camille','Vladimir','Nasus']},
+  'Garen':{hard:[{n:'Vayne',r:'True damage + kiting — imposible alcanzarla'},{n:'Jayce',r:'Pokeo constante a distancia'}],strong:[{n:'Darius',r:'Silencio para el stack de passive'},{n:'Urgot',r:'Kiting con W + E desde lejos'}],wins:['Mordekaiser','Malphite','Ornn','Nasus','Singed']},
+  'Jax':{hard:[{n:'Darius',r:'Outpressures antes de que Jax escale'},{n:'Renekton',r:'Early burst antes de que active E'}],strong:[{n:'Fiora',r:'Counterattack bloquea vitals'},{n:'Camille',r:'Movilidad similar pero mejor teamfight'}],wins:['Malphite','Ornn','Gnar','Nasus','Gwen']},
+  "K'Sante":{hard:[{n:'Darius',r:'Burst antes de que K\'Sante pueda escalar'},{n:'Fiora',r:'Outduella cuando usa habilidades incorrectamente'}],strong:[{n:'Garen',r:'Silencio interrumpe combo complejo'},{n:'Renekton',r:'Presión early muy fuerte'}],wins:['Malphite','Ornn','Sion','Vladimir','Nasus']},
+};
+
+const PATCH = [
+  {c:'Vayne',t:'nerf',d:'Daño max HP reducido. AS en R recortado. Duración E más corta.',img:true},
+  {c:'Urgot',t:'buff',d:'Presión temprana mejorada. Burst del leg cannon aumentado. Vuelve a ser top viable.',img:true},
+  {c:'Lethal Tempo',t:'adj',d:'AS ranged: 3%–12% → 3%–10%. Más diversidad de runas para ADC.',img:false},
+  {c:'Talon',t:'buff',d:'Escalado mid-game mejorado. Sube de tier en mid y potencial top.',img:true},
+  {c:'Fizz',t:'buff',d:'Targeting optimizado, menos fallos en daño sobre terreno irregular.',img:true},
+  {c:'Rammus',t:'nerf',d:'Resistencia reducida. Más vulnerable a magic damage.',img:true},
+  {c:'Swain',t:'nerf',d:'Drain del ult reducido. Menos sustain en teamfights prolongados.',img:true},
+  {c:'Teemo',t:'nerf',d:'Setas menos letales, cooldown ligeramente aumentado. Top Teemo cae a B.',img:true},
+  {c:"K'Sante",t:'adj',d:'Nuevo campeón (7.1). Tank/fighter de alto techo. Tier A-S en top.',img:true},
+  {c:'Absolute Focus',t:'buff',d:'Umbral bajado, más Adaptive Force. Mejor para poke top (Jayce, Gnar).',img:false},
+  {c:'Bone Plating',t:'buff',d:'Cooldown reducido. Más valor en intercambios de early lane.',img:false},
+];
+
+// ─────────────────────────────────────────────
+// LIVE DATA — fetch from public APIs
+// ─────────────────────────────────────────────
+
+let liveData = null;
+let patchCurrent = '7.1d';
+
+async function loadLiveData() {
+  setStatus('loading', 'Conectando con API de Wild Rift...');
+  try {
+    const res = await fetch(WR_HEROES, { signal: AbortSignal.timeout(8000) });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const data = await res.json();
+    liveData = data;
+    setStatus('online', `Datos en vivo · ${Object.keys(data.heroList || data).length} campeones · Parche ${patchCurrent}`);
+    enrichTierWithLiveData();
+  } catch(e) {
+    setStatus('offline', 'Sin conexión — usando datos locales del parche 7.1d');
+    renderTier();
+    renderDefaultCounters();
+    renderBuilds();
+    renderPatch();
+  }
+}
+
+function enrichTierWithLiveData() {
+  // Live data loaded — render everything
+  renderTier();
+  renderDefaultCounters();
+  renderBuilds();
+  renderPatch();
+  document.getElementById('meta-banner').innerHTML =
+    '<strong>Meta 7.1d:</strong> Dive agresivo domina. <strong>Bruisers y fighters</strong> son prioridad en top. Picks con CC o burst temprano son ban prioritario. ADC attack-speed scaling es win condition en late.';
+}
+
+function setStatus(state, msg) {
+  const dot = document.getElementById('status-dot');
+  const txt = document.getElementById('status-text');
+  dot.className = 'status-dot ' + (state === 'online' ? 'online' : state === 'loading' ? 'loading' : '');
+  txt.textContent = msg;
+}
+
+async function fetchPatchNotes() {
+  setStatus('loading', 'Actualizando datos del parche...');
+  document.getElementById('patch-badge').textContent = '...';
+  try {
+    // Re-fetch fresh champion data
+    await loadLiveData();
+    document.getElementById('patch-badge').textContent = patchCurrent + ' ✓';
+    setTimeout(() => document.getElementById('patch-badge').textContent = patchCurrent + ' ↻', 2000);
+  } catch(e) {
+    setStatus('offline', 'Error al actualizar. Usando datos locales.');
+    document.getElementById('patch-badge').textContent = patchCurrent + ' ↻';
+  }
+}
+
+// ─────────────────────────────────────────────
+// RENDER TIER LIST
+// ─────────────────────────────────────────────
+
+function renderTier() {
+  const c = document.getElementById('tier-container');
+  let html = '';
+  for (const [tier, d] of Object.entries(TIERS)) {
+    html += `<div class="tier-block">
+      <div class="tier-hdr">
+        <div class="tier-badge ${TCLS[tier]}">${tier}</div>
+        <div class="tier-meta"><strong>${d.champs.length} picks</strong> — ${d.meta}</div>
+      </div>
+      <div class="champ-row">
+        ${d.champs.map(ch => `
+          <div class="pill ${PCLS[tier]}" onclick="openChamp('${ch}')">
+            <img src="${cImg(ch)}" alt="${ch}" onerror="this.outerHTML='<span class=pill-init>${ch.slice(0,2).toUpperCase()}</span>'">
+            ${ch}
+          </div>`).join('')}
+      </div>
+    </div>`;
+  }
+  c.innerHTML = html;
+}
+
+// ─────────────────────────────────────────────
+// RENDER COUNTERS
+// ─────────────────────────────────────────────
+
+function renderDefaultCounters() {
+  const keys = Object.keys(COUNTERS);
+  let html = keys.map(ch => {
+    const d = COUNTERS[ch];
+    const hc = d.hard[0];
+    return `<div class="ctr-row" onclick="openChamp('${ch}')">
+      <img class="ctr-av" src="${cImg(ch)}" alt="${ch}" onerror="this.style.background='var(--faint)';this.src=''">
+      <div class="ctr-info">
+        <div class="ctr-name">${ch}</div>
+        <div class="ctr-reason">Counter: <strong style="color:var(--text)">${hc.n}</strong> — ${hc.r.substring(0,52)}…</div>
+      </div>
+      <div style="color:var(--muted);font-size:18px;align-self:center">›</div>
+    </div>`;
+  }).join('');
+  document.getElementById('ctr-default').innerHTML = html;
+}
+
+function onCtrSearch(val) {
+  const v = val.trim().toLowerCase();
+  const body = document.getElementById('ctr-body');
+  if (!v || v.length < 2) {
+    body.innerHTML = '<p class="slabel">Picks más baneados / contra los que más pierdes</p><div class="card" id="ctr-default"></div>';
+    renderDefaultCounters(); return;
+  }
+  const allC = Object.values(TIERS).flatMap(d => d.champs);
+  const found = allC.find(c => c.toLowerCase().includes(v));
+  if (found) { openChamp(found); }
+  else {
+    body.innerHTML = `<div class="empty"><p style="margin-bottom:10px">Campeón no encontrado</p>
+      <button onclick="qAsk('¿Quién countera a ${val} en Wild Rift top lane patch 7.1d?');showSec('ai',document.querySelectorAll('.nb')[3])"
+        style="padding:9px 18px;background:var(--gold);border:none;border-radius:var(--r);color:#000;font-weight:600;font-size:13px;cursor:pointer;font-family:var(--body)">Preguntar a IA →</button></div>`;
+  }
+}
+
+// ─────────────────────────────────────────────
+// RENDER BUILDS
+// ─────────────────────────────────────────────
+
+function renderBuilds() {
+  const el = document.getElementById('bld-picks');
+  const allC = Object.values(TIERS).flatMap(d => d.champs);
+  const tierOf = ch => Object.entries(TIERS).find(([t,d]) => d.champs.includes(ch))?.[0] || 'B';
+  el.innerHTML = `<div class="champ-row">${allC.map(ch => {
+    const t = tierOf(ch);
+    return `<div class="pill ${PCLS[t]}" onclick="openChamp('${ch}')">
+      <img src="${cImg(ch)}" alt="${ch}" onerror="this.outerHTML='<span class=pill-init>${ch.slice(0,2).toUpperCase()}</span>'">
+      ${ch}</div>`;
+  }).join('')}</div>`;
+}
+
+function onBldSearch(val) {
+  const v = val.trim().toLowerCase();
+  if (!v || v.length < 2) { renderBuilds(); return; }
+  const allC = Object.values(TIERS).flatMap(d => d.champs);
+  const found = allC.find(c => c.toLowerCase().includes(v));
+  if (found) openChamp(found);
+  else {
+    document.getElementById('bld-picks').innerHTML = `<div class="empty"><p style="margin-bottom:10px">No encontrado</p>
+      <button onclick="qAsk('Dame la build completa de ${val} top lane Wild Rift patch 7.1d.');showSec('ai',document.querySelectorAll('.nb')[3])"
+        style="padding:9px 18px;background:var(--gold);border:none;border-radius:var(--r);color:#000;font-weight:600;font-size:13px;cursor:pointer;font-family:var(--body)">Buscar con IA →</button></div>`;
+  }
+}
+
+// ─────────────────────────────────────────────
+// CHAMPION OVERLAY
+// ─────────────────────────────────────────────
+
+function openChamp(name) {
+  const ov = document.getElementById('ov');
+  const body = document.getElementById('ov-body');
+  const build = BUILDS[name];
+  const ctr = COUNTERS[name];
+  const tierEntry = Object.entries(TIERS).find(([t,d]) => d.champs.includes(name));
+  const tier = tierEntry?.[0] || '?';
+  const splashSlug = cSlug(name);
+
+  const heroData = liveData ? (liveData.heroList || liveData)[Object.keys(liveData.heroList || liveData).find(k => {
+    const h = (liveData.heroList || liveData)[k];
+    return h.name && h.name.toLowerCase() === name.toLowerCase();
+  })] : null;
+
+  const subtitle = heroData?.lane ? heroData.lane.charAt(0).toUpperCase()+heroData.lane.slice(1) : (build?.role || 'Top Lane');
+
+  body.innerHTML = `
+    <div class="ov-hero" style="background-image:url('${DD}/img/champion/loading/${splashSlug}_0.jpg')">
+      <img class="ov-portrait" src="${cImg(name)}" alt="${name}" onerror="this.style.background='var(--faint)'">
+      <div class="ov-info">
+        <div class="ov-name">${name}</div>
+        <div class="ov-sub">${subtitle}</div>
+        <div class="ov-pills">
+          <span class="ov-pill ${TCLS[tier]}" style="color:var(--gold);background:var(--gold-dim);border-color:rgba(200,150,60,.35)">${tier}</span>
+          ${build ? `<span class="ov-pill gold">${build.wr} WR</span>` : ''}
+          <span class="ov-pill">Patch ${patchCurrent}</span>
+        </div>
+      </div>
+    </div>
+    <div class="cd-tabs">
+      <button class="cd-tab active" onclick="cdTab(this,'p-build')">Build</button>
+      <button class="cd-tab" onclick="cdTab(this,'p-counters')">Counters</button>
+      <button class="cd-tab" onclick="cdTab(this,'p-matchups')">Matchups</button>
+    </div>
+    ${renderBuildPanel(name, build)}
+    ${renderCounterPanel(name, ctr)}
+    ${renderMatchupPanel(name, ctr)}`;
+
+  ov.classList.add('open');
+  ov.scrollTop = 0;
+}
+
+function renderBuildPanel(name, b) {
+  if (!b) return `<div id="p-build" class="cd-panel">
+    <div class="empty"><p style="margin-bottom:10px">Build no disponible localmente</p>
+      <button onclick="qAsk('Dame la build completa de ${name} top lane Wild Rift patch 7.1d: items, runas, hechizos y tips.');closeOv();showSec('ai',document.querySelectorAll('.nb')[3])"
+        style="padding:9px 18px;background:var(--gold);border:none;border-radius:var(--r);color:#000;font-weight:600;font-size:13px;cursor:pointer;font-family:var(--body)">Consultar IA →</button>
+    </div></div>`;
+
+  return `<div id="p-build" class="cd-panel">
+    <div class="ds">
+      <div class="ds-title">Hechizos · Orden skills</div>
+      <div style="font-size:13px;margin-bottom:4px">⚡ ${b.spells}</div>
+      <div style="font-size:12px;color:var(--muted)">${b.skills} → R cuando esté disponible</div>
+    </div>
+    <div class="ds">
+      <div class="ds-title">Botas</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="item-box">${iImg(b.boots.n)?`<img src="${iImg(b.boots.n)}" alt="${b.boots.n}" onerror="this.style.display='none'">`:''}</div>
+        <div><div style="font-size:13px;font-weight:500">${b.boots.n}</div><div style="font-size:11px;color:var(--muted)">${b.boots.r}</div></div>
+      </div>
+    </div>
+    <div class="ds">
+      <div class="ds-title">Items — orden de compra</div>
+      <div class="items-row">
+        ${b.items.map((it,i) => `<div class="item-wrap">
+          <div class="item-box">${iImg(it.n)?`<img src="${iImg(it.n)}" alt="${it.n}" onerror="this.style.display='none'">`:''}<div class="item-ord">${i+1}</div></div>
+          <div class="item-n">${it.n.split(' ')[0]}</div>
+        </div>`).join('')}
+      </div>
+      ${b.items.map((it,i)=>`<div style="font-size:12px;padding:6px 0;border-bottom:1px solid var(--border);display:flex;gap:8px;align-items:center">
+        <div class="item-box" style="width:30px;height:30px;flex-shrink:0">${iImg(it.n)?`<img src="${iImg(it.n)}" style="width:100%;height:100%;object-fit:cover;border-radius:4px" onerror="this.style.display='none'">`:''}<div class="item-ord" style="font-size:7px">${i+1}</div></div>
+        <span style="color:var(--text);font-weight:500">${it.n}</span><span style="color:var(--muted)"> — ${it.t}</span>
+      </div>`).join('')}
+    </div>
+    <div class="ds">
+      <div class="ds-title">Runas</div>
+      <div class="rune-list">
+        ${b.runes.map(r=>`<div class="rune-row">
+          <div class="rune-dot ${r.t==='keystone'?'rd-key':r.t==='sec'?'rd-sec':'rd-ter'}"></div>
+          <div class="rune-name">${r.n}</div>
+          <div class="rune-desc">${r.d}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="ds" style="border:none">
+      <div class="ds-title">Tips clave</div>
+      ${b.tips.map(tip=>`<div class="tip-box"><strong>${tip.t}:</strong> ${tip.d}</div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function renderCounterPanel(name, c) {
+  if (!c) return `<div id="p-counters" class="cd-panel" style="display:none">
+    <div class="empty"><p style="margin-bottom:10px">Sin datos locales</p>
+      <button onclick="qAsk('¿Quién countera a ${name} top lane Wild Rift patch 7.1d?');closeOv();showSec('ai',document.querySelectorAll('.nb')[3])"
+        style="padding:9px 18px;background:var(--gold);border:none;border-radius:var(--r);color:#000;font-weight:600;font-size:13px;cursor:pointer;font-family:var(--body)">Consultar IA →</button>
+    </div></div>`;
+
+  return `<div id="p-counters" class="cd-panel" style="display:none">
+    <div class="ds">
+      <div class="ds-title">Hard counters — te ganan en laning</div>
+      ${c.hard.map(x=>`<div class="ctr-row" style="padding:10px 0">
+        <img class="ctr-av" src="${cImg(x.n)}" alt="${x.n}" onerror="this.style.background='var(--faint)';this.src=''">
+        <div class="ctr-info"><div class="ctr-name">${x.n}</div><div class="ctr-reason">${x.r}</div></div>
+        <div class="ctr-badge b-hard">Hard</div>
+      </div>`).join('')}
+    </div>
+    <div class="ds" style="border:none">
+      <div class="ds-title">Difíciles — cuidado en lane</div>
+      ${c.strong.map(x=>`<div class="ctr-row" style="padding:10px 0">
+        <img class="ctr-av" src="${cImg(x.n)}" alt="${x.n}" onerror="this.style.background='var(--faint)';this.src=''">
+        <div class="ctr-info"><div class="ctr-name">${x.n}</div><div class="ctr-reason">${x.r}</div></div>
+        <div class="ctr-badge b-strong">Difícil</div>
+      </div>`).join('')}
+    </div>
+  </div>`;
+}
+
+function renderMatchupPanel(name, c) {
+  if (!c?.wins) return `<div id="p-matchups" class="cd-panel" style="display:none">
+    <div class="empty"><p style="margin-bottom:10px">Sin datos locales</p>
+      <button onclick="qAsk('¿Contra qué campeones domina ${name} en top lane Wild Rift 7.1d?');closeOv();showSec('ai',document.querySelectorAll('.nb')[3])"
+        style="padding:9px 18px;background:var(--gold);border:none;border-radius:var(--r);color:#000;font-weight:600;font-size:13px;cursor:pointer;font-family:var(--body)">Consultar IA →</button>
+    </div></div>`;
+
+  return `<div id="p-matchups" class="cd-panel" style="display:none">
+    <div class="ds-title">${name} domina contra — matchups favorables</div>
+    ${c.wins.map(x=>`<div class="ctr-row" style="padding:10px 0">
+      <img class="ctr-av" src="${cImg(x)}" alt="${x}" onerror="this.style.background='var(--faint)';this.src=''">
+      <div class="ctr-info"><div class="ctr-name">${x}</div><div class="ctr-reason">Matchup favorable — ${name} tiene ventaja</div></div>
+      <div class="ctr-badge b-win">Ganas</div>
+    </div>`).join('')}
+    <div style="margin-top:14px">
+      <button onclick="qAsk('Dame análisis detallado de los mejores y peores matchups de ${name} top en Wild Rift 7.1d');closeOv();showSec('ai',document.querySelectorAll('.nb')[3])"
+        style="width:100%;padding:10px;background:var(--gold);border:none;border-radius:var(--r);color:#000;font-weight:600;font-size:13px;cursor:pointer;font-family:var(--body)">Más matchups con IA →</button>
+    </div>
+  </div>`;
+}
+
+function closeOv() { document.getElementById('ov').classList.remove('open'); }
+
+function cdTab(btn, id) {
+  document.querySelectorAll('.cd-tab').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.cd-panel').forEach(p => p.style.display = 'none');
+  btn.classList.add('active');
+  document.getElementById(id).style.display = 'block';
+}
+
+// ─────────────────────────────────────────────
+// RENDER PATCH
+// ─────────────────────────────────────────────
+
+function renderPatch() {
+  document.getElementById('patch-body').innerHTML = PATCH.map(p => `
+    <div class="pc">
+      <div class="pc-bar bar-${p.t==='adj'?'adj':p.t==='buff'?'buff':'nerf'}"></div>
+      ${p.img ? `<img class="pc-img" src="${cImg(p.c)}" alt="${p.c}" onerror="this.style.display='none'">` :
+        `<div style="width:36px;height:36px;border-radius:6px;background:var(--faint);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px">⚙️</div>`}
+      <div class="pc-body">
+        <div class="pc-champ">${p.c}</div>
+        <div class="pc-desc">${p.d}</div>
+      </div>
+      <div class="pc-type pt-${p.t==='adj'?'adj':p.t==='buff'?'buff':'nerf'}">${p.t==='buff'?'Buff':p.t==='nerf'?'Nerf':'Adjust'}</div>
+    </div>`).join('');
+}
+
+// ─────────────────────────────────────────────
+// AI CHAT
+// ─────────────────────────────────────────────
+
+let aiHistory = [];
+let aiLoading = false;
+
+function qAsk(txt) {
+  document.getElementById('ai-inp').value = txt;
+  sendAI();
+}
+
+function aiKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendAI(); }
+}
+
+async function sendAI() {
+  if (aiLoading) return;
+  const inp = document.getElementById('ai-inp');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  inp.value = '';
+  aiLoading = true;
+  document.getElementById('ai-send').disabled = true;
+  addMsg('user', txt);
+  aiHistory.push({ role:'user', content:txt });
+  const tid = addThink();
+  try {
+    const r = await fetch('https://api.anthropic.com/v1/messages', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:1000,
+        system:`Eres experto en Wild Rift top lane patch 7.1d. Meta actual: dive agresivo, bruisers dominan. S+: Ambessa, Ornn, Malphite, Sion. Cambios recientes: Vayne nerfeada, Urgot buffed, Lethal Tempo ranged reducido. Responde en español, conciso y con recomendaciones accionables. Usa <strong> para negritas.`,
+        messages:aiHistory,
+      }),
+    });
+    const d = await r.json();
+    const reply = d.content?.find(b=>b.type==='text')?.text || 'Error al obtener respuesta.';
+    removeThink(tid);
+    addMsg('ai', reply);
+    aiHistory.push({role:'assistant',content:reply});
+  } catch(e) {
+    removeThink(tid);
+    addMsg('ai','Sin conexión a la IA. Revisa tu internet.');
+  }
+  aiLoading = false;
+  document.getElementById('ai-send').disabled = false;
+}
+
+let thinkN = 0;
+function addMsg(role, txt) {
+  const el = document.createElement('div');
+  el.className = `ai-msg ai-${role==='user'?'user':'bot'}`;
+  el.innerHTML = role==='user' ? txt.replace(/</g,'&lt;') : txt;
+  document.getElementById('ai-msgs').appendChild(el);
+  el.scrollIntoView({behavior:'smooth',block:'end'});
+}
+function addThink() {
+  const id = 'tk'+(++thinkN);
+  const el = document.createElement('div');
+  el.id=id; el.className='ai-think';
+  el.innerHTML='<div class="ai-dots"><span></span><span></span><span></span></div> Analizando parche 7.1d...';
+  document.getElementById('ai-msgs').appendChild(el);
+  el.scrollIntoView({behavior:'smooth',block:'end'});
+  return id;
+}
+function removeThink(id) { document.getElementById(id)?.remove(); }
+
+// ─────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────
+
+function showSec(name, btn) {
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+name).classList.add('active');
+  btn.classList.add('active');
+}
+
+// ─────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────
+
+loadLiveData();
+</script>
+</body>
+</html>
